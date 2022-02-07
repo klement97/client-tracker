@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
+import { Client } from 'src/app/clients/models';
 import { ClientService } from './services/client.service';
 
 
@@ -17,7 +19,7 @@ import { ClientService } from './services/client.service';
                          [formControl]="myControl"
                          [matAutocomplete]="auto">
                   <mat-autocomplete #auto="matAutocomplete">
-                      <mat-option *ngFor="let client of clients" [value]="client.name">
+                      <mat-option *ngFor="let client of $filteredOptions | async" [value]="client.name">
                           {{client.number}} - {{client.name}}
                       </mat-option>
                   </mat-autocomplete>
@@ -54,6 +56,7 @@ export class ClientListComponent implements OnInit {
 
   myControl = new FormControl();
   clients: { number: number, name: string }[] = [];
+  $filteredOptions!: Observable<Client[]>;
 
 
   ngOnInit(): void {
@@ -62,9 +65,23 @@ export class ClientListComponent implements OnInit {
 
 
   getClients() {
-    return this.clientService.getClients().subscribe(
-      (response: any) => this.clients = response
+    this.clientService.getClients().subscribe(
+      (response: any) => {
+        this.clients = response;
+        console.log(this.clients);
+        this.$filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(''),
+          map(value => (typeof value === 'string' ? value : value.name)),
+          map(name => (name ? this._filter(name) : this.clients.slice())),
+        );
+      }
     );
+  }
+
+  private _filter(name: string): Client[] {
+    const filterValue = name.toLowerCase();
+
+    return this.clients.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
 }
