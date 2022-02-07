@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiHost: 'https://client-tracker-api.herokuapp.com/api'
+  apiHost: 'https://client-tracker-backend.herokuapp.com/api'
 };
