@@ -28,7 +28,6 @@ export class AuthService {
 
 
   login(username: string, password: string) {
-    console.log('logging in');
     const url = `${environment.apiHost}/token-login/`;
     const body = { username, password };
     const options = this.getOptions();
