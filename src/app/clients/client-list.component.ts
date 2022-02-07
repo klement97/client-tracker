@@ -68,7 +68,6 @@ export class ClientListComponent implements OnInit {
     this.clientService.getClients().subscribe(
       (response: any) => {
         this.clients = response;
-        console.log(this.clients);
         this.$filteredOptions = this.myControl.valueChanges.pipe(
           startWith(''),
           map(value => (typeof value === 'string' ? value : value.name)),

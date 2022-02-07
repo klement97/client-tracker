@@ -88,7 +88,6 @@ export class LoginComponent implements OnInit {
 
     this.errorMessage = '';
     const { username, password } = this.loginForm.value;
-    console.log(username, password);
     this.authService.login(username, password).subscribe(
       (response: any) => {
         this.onSuccess();
@@ -106,7 +105,6 @@ export class LoginComponent implements OnInit {
 
 
   onError(response: any) {
-    console.log(response);
     if (response.status === 400 && response.error?.non_field_errors.length > 0) {
       this.errorMessage = 'Invalid username or password';
     }
