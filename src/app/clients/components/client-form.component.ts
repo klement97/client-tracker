@@ -76,8 +76,6 @@ export class ClientFormComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.isUpdate = !!this.data.client;
-    console.log(data);
-    console.log('Is update: ', this.isUpdate);
     this.clientForm = this._getClientForm();
   }
 

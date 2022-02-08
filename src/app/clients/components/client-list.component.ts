@@ -140,7 +140,6 @@ export class ClientListComponent implements OnInit {
   }
 
   selectClient(client: Client) {
-    console.log(client);
     this.selectedClient = client;
   }
 
