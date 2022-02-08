@@ -29,7 +29,7 @@ import { CookieService } from 'ngx-cookie-service';
               </div>
 
               <!-- Submit button -->
-              <button mat-raised-button color="primary">Login</button>
+              <button mat-raised-button color="primary" type="submit">Login</button>
 
           </form>
       </div>
